@@ -1,12 +1,13 @@
 module.exports = function(grunt) {
 
-  // Project configuration.
+    // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     express: {
       dev: {
         options: {
-          script: 'server/index.js',
+            script: 'server/index.js',
+            arg:['--presets es2017,stage-2'],
         }
       }
     },
