@@ -17,6 +17,8 @@ app.use("/client", express.static('client'));
 
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
+app.use ('/api/products', require ('./routes/products'));
+
 
 app.get('/*', function (req, res) {
 	res.sendFile(path.resolve('client/index.html'));

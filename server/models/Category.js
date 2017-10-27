@@ -11,7 +11,5 @@ const Category = Connection.define('categorie', {
     }
 }, {underscored: true});
 
-Category.belongsTo(Product);
-
 Connection.sync();
 module.exports = Category;
