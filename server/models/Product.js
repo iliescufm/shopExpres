@@ -14,7 +14,7 @@ const Product = Connection.define('product', {
         type: Sequelize.STRING(),
     },
     package: {
-        type: Sequelize.STRING(),
+        type: Sequelize.FLOAT(),
     }
 }, {underscored: true});
 
