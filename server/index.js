@@ -1,7 +1,17 @@
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var path = require('path');
+let express = require('express');
+let app = express();
+let bodyParser = require('body-parser');
+let path = require('path');
+
+require("./models/User");
+require("./models/UserAddreses");
+require("./models/UserPreferences");
+require("./models/Product");
+require("./models/Company");
+require("./models/Category");
+
+
+require('dotenv');
 
 app.use("/client", express.static('client'));
 
@@ -12,8 +22,8 @@ app.get('/*', function (req, res) {
 	res.sendFile(path.resolve('client/index.html'));
 });
 
-var server = require('http').createServer(app);
+let server = require('http').createServer(app);
 
-server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function () {
-	console.log('Server listening.');
+server.listen(process.env.PORT_PROD || 3000, process.env.IP || "0.0.0.0", function () {
+	console.log(`Server listening. ${process.env.PORT_PROD}`);
 });

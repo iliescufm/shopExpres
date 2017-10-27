@@ -10,6 +10,15 @@ module.exports = function(grunt) {
         }
       }
     },
+    env : {
+        options : {
+            PORT_PROD : '8080'
+            //Shared Options Hash
+        },
+        dev : {
+            PORT_PROD : '8080'
+        }
+    },
     watch: {
       scripts: {
         files: ['server/**/*.js'],
