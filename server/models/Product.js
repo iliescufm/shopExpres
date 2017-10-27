@@ -16,7 +16,7 @@ const Product = Connection.define('product', {
     package: {
         type: Sequelize.STRING(),
     }
-}, {underscored: true});
+}, {underscored: true, timestamp: false});
 
 Product.belongsTo(Company);
 Product.belongsTo(Category);

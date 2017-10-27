@@ -8,7 +8,7 @@ const UserPreferences = Connection.define('user_preferences', {
     ordered_quantity: {
         type: Sequelize.STRING(),
     }
-}, {underscored: true});
+}, {underscored: true, timestamp: false});
 
 UserPreferences.belongsTo(User);
 UserPreferences.belongsTo(Product);
