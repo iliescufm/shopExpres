@@ -14,6 +14,7 @@ exports.obtainProduct = async function(id, quantity){
         let products = await ProductService.obtainApproximateProduct(searchParams.categoryId, searchParams.quantity);
 
         if(parseInt(maxValue[0][0].max) !== 0) {
+            let auxArray = [];
             for (let i = searchParams.quantity; i >= maxValue[0][0].max; i--) {
                 if (absoluteMax <= 0) {
                     break;
@@ -26,13 +27,16 @@ exports.obtainProduct = async function(id, quantity){
 
                     if (absoluteMax >= product.package) {
                         while(absoluteMax >= product.package) {
-                            arrayList.push(product);
+                            auxArray.push(product);
                             absoluteMax = absoluteMax - product.package;
                         }
                         return;
                     }
                 });
             }
+
+            arrayList = auxArray;
+
         } else {
             products[0][0].package = searchParams.quantity;
             arrayList.push(products[0][0]);
@@ -41,7 +45,17 @@ exports.obtainProduct = async function(id, quantity){
         return {status:200, data:arrayList}
     }
     catch(err){
-        console.log(err);
+        return{status:500, data:"Server functionality error"}
+    }
+};
+
+exports.obtainOptionalProducts = async function(arrayId, categoryId){
+    try {
+        let products = await ProductService.getOtherProducts(arrayId, categoryId);
+
+        return{status:200, data:products}
+    }
+    catch (err){
         return{status:500, data:"Server functionality error"}
     }
 };

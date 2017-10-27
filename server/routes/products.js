@@ -16,6 +16,14 @@ router.post('/obtainProduct', async function(req, res){
 
     let result = await ProductController.obtainProduct(id, quantity);
     res.status(result.status).send(result.data);
-})
+});
+
+router.post('/obtainOptionalProducts', async function(req, res){
+   let array = req.body.ids;
+   let categoryId = req.body.category;
+
+   let result = await ProductController.obtainOptionalProducts(array, categoryId);
+   res.status(result.status).send(result.data);
+});
 
 module.exports = router;
