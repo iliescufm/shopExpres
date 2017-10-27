@@ -3,7 +3,9 @@
 <head>
 	<base href="/">
 	<title>Smart SHopping LIst</title>
-	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+	<link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+
 	<link rel="stylesheet" type="text/css" href="/client/bower_components/angular-material/angular-material.min.css">
 	<link rel="stylesheet" type="text/css" href="/client/bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/client/bower_components/font-awesome/css/font-awesome.min.css">
@@ -16,16 +18,14 @@
 
 	<div ng-controller="ListCtrl as ctrl" class="container">
 		
-		<md-content class="md-padding" ng-repeat="i in ctrl.arr">
+		<div class="col-md-6 col-md-push-3">
+		<md-content class="md-padding userReq" ng-repeat="i in ctrl.arr">
 
-			<div style="width: 90%; float: left">
+			<div style="width: 80%; float: left">
 	      <md-autocomplete
-	          ng-disabled="ctrl.isDisabled"
-	          md-no-cache="ctrl.noCache"
 	          md-selected-item="i.selectedItem"
 	          md-search-text-change="ctrl.searchTextChange(i.searchText)"
 	          md-search-text="i.searchText"
-	          md-selected-item-change="ctrl.selectedItemChange(item)"
 	          md-items="item in ctrl.querySearch(i.searchText)"
 	          md-item-text="item.display"
 	          placeholder="Introdu catgoria de produs apoi cantitatea">
@@ -40,9 +40,12 @@
 
 	  </md-content>
 
-	  <md-button class="md-raised" ng-click="ctrl.add_new()"><i class="fa fa-plus"></i></md-button>
+	  	<div class="buttons">
+		  	<button class="md-raised" ng-click="ctrl.add_new()"><i class="fa fa-plus"></i></button>
 
-	  	<md-button class="md-raised" ng-click="ctrl.genereazaCosul()">Genereaza Cosul</md-button>
+		  	<button class="md-raised" ng-click="ctrl.genereazaCosul()">Genereaza Cosul</button>
+		  	</div>
+		</div>
 
 	</div>		
 	

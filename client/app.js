@@ -1,6 +1,6 @@
-var app = angular.module('app', ['ngMaterial']);
+var app = angular.module('app', ['ngMaterial', 'ngMessages']);
 
-app.controller("ListCtrl", function($scope, $timeout, $q, $log, $http) {
+app.controller("ListCtrl", function($scope, $timeout, $q, $log, $http, $mdDialog) {
 
 	this.arr = [
 		{
@@ -27,19 +27,38 @@ app.controller("ListCtrl", function($scope, $timeout, $q, $log, $http) {
 		})
     }
 
-    self.genereazaCosul = function() {
-    	self.arr.map((item) => {
-    		delte 
-    		item.quantity = item.searchText.match(/\d+/)[0]
-    		self.states.forEach((categ) => {
-    			if(item.searchText.startsWith(categ.display))
-    				item.id = categ.value
-    		})
-    	})
 
-    	$http.post('/api/product/obtainProduct', self.arr).then((res) => {
-    		console.log(res.data);
-    	})
+    self.genereazaCosul = function() {
+    	 $mdDialog.show({
+	         template: '\
+				<div class="sk-cube-grid">\
+				  <div class="sk-cube sk-cube1"></div>\
+				  <div class="sk-cube sk-cube2"></div>\
+				  <div class="sk-cube sk-cube3"></div>\
+				  <div class="sk-cube sk-cube4"></div>\
+				  <div class="sk-cube sk-cube5"></div>\
+				  <div class="sk-cube sk-cube6"></div>\
+				  <div class="sk-cube sk-cube7"></div>\
+				  <div class="sk-cube sk-cube8"></div>\
+				  <div class="sk-cube sk-cube9"></div>\
+				</div>	\
+	         ',
+	         controller: function() {
+
+	         }
+      	});
+
+    	// self.arr.map((item) => {
+    	// 	item.quantity = item.searchText.match(/\d+/)[0]
+    	// 	self.states.forEach((categ) => {
+    	// 		if(item.searchText.startsWith(categ.display))
+    	// 			item.id = categ.value
+    	// 	})
+    	// })
+
+    	// $http.post('/api/product/obtainProduct', self.arr).then((res) => {
+    	// 	console.log(res.data);
+    	// })
     }
 
     self.sterge = function(idx) {
@@ -55,8 +74,5 @@ app.controller("ListCtrl", function($scope, $timeout, $q, $log, $http) {
     function selectedItemChange(item) {
       $log.info('Item changed to ' + JSON.stringify(item));
     }
-
-    
-
 
 });
