@@ -11,7 +11,7 @@ const User = Connection.define('user', {
     email: {
         type: Sequelize.STRING(),
     }
-}, {underscored: true, timestamp: false});
+}, {underscored: true});
 
 Connection.sync();
 module.exports = User;

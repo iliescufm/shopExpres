@@ -11,7 +11,7 @@ const Company = Connection.define('company', {
     city: {
         type: Sequelize.STRING(),
     }
-}, {underscored: true, timestamp: false});
+}, {underscored: true});
 
 Connection.sync();
 module.exports = Company;

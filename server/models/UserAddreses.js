@@ -15,7 +15,7 @@ const UserAddress = Connection.define('user_address', {
     postal_code:{
         type: Sequelize.STRING(),
     },
-}, {underscored: true, timestamp: false});
+}, {underscored: true});
 
 UserAddress.belongsTo(User);
 
