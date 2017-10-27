@@ -5,14 +5,10 @@ app.controller("ListCtrl", function($scope, $timeout, $q, $log, $http, $mdDialog
 
 	this.arr = [
 		{
-			searchText: 'Lapte (litri) 1',
+			searchText: 'Lapte (litru) 2',
 		},
-
-		{
-			searchText: 'Pizza (bucata) 1'
-		}
 	]
-	this.page = 'listOutput';
+	this.page = 'buildList';
 
 	var self = this;
 
@@ -21,6 +17,7 @@ app.controller("ListCtrl", function($scope, $timeout, $q, $log, $http, $mdDialog
 	}
 
     $http.get('/api/products/getCategories').then((res) => {
+    	alert("Got states");
     	self.states = res.data.map((categ)=>{
     		return {
     			value: categ.id,
@@ -37,114 +34,82 @@ app.controller("ListCtrl", function($scope, $timeout, $q, $log, $http, $mdDialog
     }
 
     self.optionToDescription = function(option) {
-    	var description = "";
-    	option.forEach((component) => {
-    		description += component.package + " x " + component.name + ", "
-    	});
-    	return description.substring(0, description.length - 2);
+    	return option.times + " x " + option.name;
     }
 
     self.total = function(results) {
     	var sum = 0;
     	results.forEach((res) => {
-    		res.selected.forEach((component) => {
-    			sum += component.package * component.price;
-    		})
-    	})
-    	return sum
+    		sum += res.selected.times * res.selected.price;
+    	});
+    	return sum;
     }
 
-    self.results = [
-
-    	// result for first categ : lapte 1L
-    	{
-    		recommanded: [
-    			{
-    				name: "Lapte Napolact 1L",
-
-    				package: 1,
-    				price: "4",
-    			}
-    		],
-
-    		other: [
-    			[
-    				{
-	    				name: "Lapte LaDorna 0.7L",
-	    				package: 1,
-	    				price: "4",
-	    			},
-	    			{
-	    				name: "Lapte Napolact 0.3L",
-	    				package: 1,
-	    				price: "4",
-	    			}
-    			],
-    			[
-    				{
-	    				name: "Lapte Delaco 1L",
-	    				package: 1,
-	    				price: "4",
-	    			}
-    			],
-    		]
-    	}, 
-
-    	// result for second categ: bere 2 L
-    	{
-    		recommanded: [
-    			{
-    				name: 'Pizza Giuseppe',
-    				package: 1,
-    				price: 9,
-    			}
-    		],
-    		other: [
-    			[
-    				{
-    					name: 'Pizza Margherita',
-    					package: 1,
-    					price: 7
-    				}
-    			]
-    		]
-
-    	}
-
-    ];
-
     self.genereazaCosul = function() {
-    	 $mdDialog.show({
-	         template: '\
-				<div class="sk-cube-grid">\
-				  <div class="sk-cube sk-cube1"></div>\
-				  <div class="sk-cube sk-cube2"></div>\
-				  <div class="sk-cube sk-cube3"></div>\
-				  <div class="sk-cube sk-cube4"></div>\
-				  <div class="sk-cube sk-cube5"></div>\
-				  <div class="sk-cube sk-cube6"></div>\
-				  <div class="sk-cube sk-cube7"></div>\
-				  <div class="sk-cube sk-cube8"></div>\
-				  <div class="sk-cube sk-cube9"></div>\
-				</div>	\
-	         ',
-	         controller: function() {
+    // 	 $mdDialog.show({
+	   //       template: '\
+				// <div class="sk-cube-grid">\
+				//   <div class="sk-cube sk-cube1"></div>\
+				//   <div class="sk-cube sk-cube2"></div>\
+				//   <div class="sk-cube sk-cube3"></div>\
+				//   <div class="sk-cube sk-cube4"></div>\
+				//   <div class="sk-cube sk-cube5"></div>\
+				//   <div class="sk-cube sk-cube6"></div>\
+				//   <div class="sk-cube sk-cube7"></div>\
+				//   <div class="sk-cube sk-cube8"></div>\
+				//   <div class="sk-cube sk-cube9"></div>\
+				// </div>	\
+	   //       ',
+	   //       controller: function() {
 
-	         }
-      	});
+	   //       }
+    //   	});
 
     	self.page = 'listOutput';
-    	// self.arr.map((item) => {
-    	// 	item.quantity = item.searchText.match(/\d+/)[0]
-    	// 	self.states.forEach((categ) => {
-    	// 		if(item.searchText.startsWith(categ.display))
-    	// 			item.id = categ.value
-    	// 	})
-    	// })
 
-    	// $http.post('/api/product/obtainProduct', self.arr).then((res) => {
-    	// 	console.log(res.data);
-    	// })
+    	self.arr.map((item) => {
+    		item.quantity = item.searchText.match(/\d+/)[0];
+    		self.states.forEach((categ) => {
+    			console.log('>', item.searchText.startsWith(categ.display))
+    			if(item.searchText.startsWith(categ.display))
+    				item.id = categ.value
+    		})
+    	})
+
+    	console.log(self.arr);
+
+    	self.results = Array(self.arr.length);
+
+    	self.arr.forEach((categ, idx) => {
+    		console.log(categ)
+    		$http.post('/api/products/obtainOptionalProducts', {
+    			// id: categ.id,
+    			// quantity: categ.quantity
+    			ids: [],
+    			category: categ.id
+    		}).then((res) => {
+	    		var smallers = res.data.filter((prduct) =>{
+	    			return prduct.package <= categ.quantity
+	    		});
+
+	    		smallers.map((prduct) => {
+	    			prduct.times = Math.ceil(categ.quantity/prduct.package);
+	    		})
+
+	    		var smallers2 = smallers.slice();
+	    		smallers2.splice(0, 1);
+
+	    		self.results[idx] = {
+	    			selected: smallers[0],
+	    			recommanded: smallers[0],
+	    			other: smallers2,
+	    		}
+
+
+	    	})
+
+    	});
+
     }
 
     self.sterge = function(idx) {
