@@ -1,10 +1,10 @@
 const ProductService = require('../services/Product');
 
-exports.obtainProduct = async function(details){
+exports.obtainProduct = async function(id, quantity){
     try{
         let searchParams = {
-            categoryId: parseInt(details.id),
-            quantity: parseFloat(details.quantity)
+            categoryId: parseInt(id),
+            quantity: parseFloat(quantity)
         };
 
         let arrayList = [];
@@ -24,9 +24,9 @@ exports.obtainProduct = async function(details){
                     }
 
                     if (absoluteMax >= product.package) {
-                        while(absoluteMax > product.package) {
+                        while(absoluteMax >= product.package) {
                             arrayList.push(product);
-                            absoluteMax = absoluteMax - product.package
+                            absoluteMax = absoluteMax - product.package;
                         }
                         return;
                     }

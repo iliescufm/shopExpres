@@ -11,9 +11,10 @@ router.get('/getCategories', async function(req, res) {
 });
 
 router.post('/obtainProduct', async function(req, res){
-    let details = req.body.details;
+    let id = req.body.id;
+    let quantity = req.body.quantity;
 
-    let result = await ProductController.obtainProduct(details);
+    let result = await ProductController.obtainProduct(id, quantity);
     res.status(result.status).send(result.data);
 })
 
