@@ -28,7 +28,6 @@
 	          md-selected-item-change="ctrl.selectedItemChange(item)"
 	          md-items="item in ctrl.querySearch(i.searchText)"
 	          md-item-text="item.display"
-	          md-min-length="0"
 	          placeholder="Introdu catgoria de produs apoi cantitatea">
 	        <md-item-template>
 	          <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
@@ -43,7 +42,7 @@
 
 	  <md-button class="md-raised" ng-click="ctrl.add_new()"><i class="fa fa-plus"></i></md-button>
 
-	  	<md-button class="md-raised" ng-click="ctrl.cumpara()">Genereaza Cosul</md-button>
+	  	<md-button class="md-raised" ng-click="ctrl.genereazaCosul()">Genereaza Cosul</md-button>
 
 	</div>		
 	
