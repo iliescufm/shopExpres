@@ -17,7 +17,11 @@ const connection = new Sequelize(
         logging: false,
         host: config.host,
         dialect: 'mysql',
-    });
+        define: {
+            timestamps: false
+        }
+    }
+    );
 
 //Exporting the connection for external usage
 module.exports = connection;
