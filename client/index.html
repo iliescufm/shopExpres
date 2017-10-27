@@ -18,6 +18,7 @@
 		
 		<md-content class="md-padding" ng-repeat="i in ctrl.arr">
 
+			<div style="width: 90%; float: left">
 	      <md-autocomplete
 	          ng-disabled="ctrl.isDisabled"
 	          md-no-cache="ctrl.noCache"
@@ -33,12 +34,16 @@
 	          <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
 	        </md-item-template>
 	      </md-autocomplete>
-	    	
+	      </div>
+			<div style="width: 10%; float: left; text-align: center;">
+	      		<md-button ng-click="ctrl.sterge($index)"><i class="fa fa-times"></i></md-button>
+	      </div>
+
 	  </md-content>
 
 	  <md-button class="md-raised" ng-click="ctrl.add_new()"><i class="fa fa-plus"></i></md-button>
 
-	  	<md-button class="md-raised" ng-click="ctrl.cumpara()">Cumpara</md-button>
+	  	<md-button class="md-raised" ng-click="ctrl.cumpara()">Genereaza Cosul</md-button>
 
 	</div>		
 	

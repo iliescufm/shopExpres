@@ -29,7 +29,15 @@ app.controller("ListCtrl", function($scope, $timeout, $q, $log) {
     }
 
     self.cumpara = function() {
-    	alert("Vei cumpara ceva");
+    	self.arr.map((item) => {
+    		console.log(item)
+    		item.cantiate = item.searchText.match(/\d+/)[0]
+    	})
+    	console.log(self.arr);
+    }
+
+    self.sterge = function(idx) {
+    	self.arr.splice(idx, 1);
     }
 
     function newState(state) {
