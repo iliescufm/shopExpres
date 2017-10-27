@@ -38,3 +38,9 @@ exports.getOtherProducts = async function(array, categoryId){
         categorie_id: categoryId
     }})
 };
+
+exports.getProduct = async function(id){
+    return await Product.findOne({where: {
+        id: id
+    }})
+}

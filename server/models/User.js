@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 const Connection = require("../database/dbConnection");
 
 const User = Connection.define('user', {
-    username: {
+    full_name: {
         type: Sequelize.STRING(),
     },
     password: {

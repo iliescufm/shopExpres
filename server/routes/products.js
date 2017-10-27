@@ -3,6 +3,7 @@ const router = express.Router();
 
 const CategoryController = require('../controllers/CategoryController');
 const ProductController = require('../controllers/ProductController');
+const UserController = require('../controllers/UserController');
 
 //Routing declaration area
 router.get('/getCategories', async function(req, res) {
@@ -11,10 +12,22 @@ router.get('/getCategories', async function(req, res) {
 });
 
 router.post('/obtainProduct', async function(req, res){
-    let id = req.body.id;
+    let categoryId = req.body.category_id;
+    let userId = req.body.user_id;
     let quantity = req.body.quantity;
 
-    let result = await ProductController.obtainProduct(id, quantity);
+    let result;
+
+    let obtainPreference = await UserController.obtainPreference(categoryId, userId);
+    console.log(obtainPreference);
+
+    if(obtainPreference !== null){
+        obtainPreference.package = quantity;
+        result = obtainPreference;
+    } else {
+        result = await ProductController.obtainProduct(categoryId, quantity);
+    }
+
     res.status(result.status).send(result.data);
 });
 
