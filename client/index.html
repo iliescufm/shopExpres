@@ -3,49 +3,25 @@
 <head>
 	<base href="/">
 	<title>Smart SHopping LIst</title>
-	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+	<link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+
 	<link rel="stylesheet" type="text/css" href="/client/bower_components/angular-material/angular-material.min.css">
 	<link rel="stylesheet" type="text/css" href="/client/bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/client/bower_components/font-awesome/css/font-awesome.min.css">
+	<!-- <link rel="stylesheet" type="text/css" href="/client/bower_components/materialize/dist/css/materialize.min.css">
+	<link rel="stylesheet" type="text/css" href="/client/bower_components/materialize/dist/js/materialize.min.js"> -->
+	<link rel="stylesheet" type="text/css" href="/client/bower_components/jquery/dist/jquery.min.js">
 
 	<link href="/client/bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css"/>
 
 	<link rel="stylesheet" type="text/css" href="/client/style.css">
 </head>
-<body ng-app="app">
+<body>
 
-	<div ng-controller="ListCtrl as ctrl" class="container">
-		
-		<md-content class="md-padding" ng-repeat="i in ctrl.arr">
-
-			<div style="width: 90%; float: left">
-	      <md-autocomplete
-	          ng-disabled="ctrl.isDisabled"
-	          md-no-cache="ctrl.noCache"
-	          md-selected-item="i.selectedItem"
-	          md-search-text-change="ctrl.searchTextChange(i.searchText)"
-	          md-search-text="i.searchText"
-	          md-selected-item-change="ctrl.selectedItemChange(item)"
-	          md-items="item in ctrl.querySearch(i.searchText)"
-	          md-item-text="item.display"
-	          placeholder="Introdu catgoria de produs apoi cantitatea">
-	        <md-item-template>
-	          <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
-	        </md-item-template>
-	      </md-autocomplete>
-	      </div>
-			<div style="width: 10%; float: left; text-align: center;">
-	      		<md-button ng-click="ctrl.sterge($index)"><i class="fa fa-times"></i></md-button>
-	      </div>
-
-	  </md-content>
-
-	  <md-button class="md-raised" ng-click="ctrl.add_new()"><i class="fa fa-plus"></i></md-button>
-
-	  	<md-button class="md-raised" ng-click="ctrl.genereazaCosul()">Genereaza Cosul</md-button>
-
-	</div>		
-	
+	<div ng-app="app">
+		<ui-view></ui-view>
+	</div>
 		
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWColN1am3vdiGdBssTJ6Vp1aoQ1SwjdA"></script>
 
@@ -59,6 +35,10 @@
 	<script type="text/javascript" src="/client/bower_components/angular-material/angular-material.min.js"></script>
 
 	<script type="text/javascript" src="/client/app.js"></script>
+
+	<script type="text/javascript" src="/client/pages/login/ctrl.js"></script>
+	<script type="text/javascript" src="/client/pages/buildList/ctrl.js"></script>
+	<script type="text/javascript" src="/client/pages/generatedProducts/ctrl.js"></script>
 
 </body>
 </html>
