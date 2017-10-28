@@ -28,7 +28,7 @@ router.post('/obtainProduct', async function(req, res){
         result = await ProductController.obtainProduct(categoryId, quantity);
     }
 
-    res.status(result.status).send(result.data);
+    res.status(result.status).send([result.data]);
 });
 
 router.post('/obtainOptionalProducts', async function(req, res){
