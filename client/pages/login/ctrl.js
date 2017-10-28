@@ -9,7 +9,7 @@ app.controller('LoginCtrl', function($scope, $http, $state, $rootScope){
 		$http.post('/api/users/login', $scope.user)
 		.then((res) => {
 			alert(1);
-			$rootScope.id = res.data.id;
+			document.cookie = "id="+res.data.id;
 			$state.go('buildList');
 		})
 		.catch((res) => {

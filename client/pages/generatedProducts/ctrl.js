@@ -1,5 +1,9 @@
 app.controller('GeneratedProductsCtrl', function($scope, $rootScope, $http){
-
+	function getCookie(name) {
+	  var value = "; " + document.cookie;
+	  var parts = value.split("; " + name + "=");
+	  if (parts.length == 2) return parts.pop().split(";").shift();
+	}
 	// Maybe redundant...
 	$scope.arr = $rootScope.arr;
 
@@ -33,11 +37,23 @@ app.controller('GeneratedProductsCtrl', function($scope, $rootScope, $http){
             var smallers2 = smallers.slice();
             smallers2.splice(0, 1);
 
-            $rootScope.results[idx] = {
+
+            if(getCookie('id') != null) {
+	            $http.post('/api/products/obtainProduct', {
+	            	quantity: categ.quantity,
+	            	user_id: getCookie('id'),
+	            	category_id: categ.id,
+	            }).then((res) => {
+	            	$rootScope.results[idx].recommanded = res.data[0];
+	            })
+        	} 
+
+    		$rootScope.results[idx] = {
                 selected: smallers[0],
-                recommanded: smallers[0],
                 other: smallers2,
             }
+        	
+
         });
 
 
@@ -54,6 +70,19 @@ app.controller('GeneratedProductsCtrl', function($scope, $rootScope, $http){
     		sum += res.selected.times * res.selected.price;
     	});
     	return sum;
+    }
+
+    $scope.plaseazaComanda = function(res) {
+    	if(getCookie('id') != null) {
+    		console.log("Salveaza preferintele....");
+	    	res.forEach((categ) => {
+	    		$http.post('/api/users/createPreference', {
+	    			user_id: getCookie('id'),
+	    			category_id: categ.selected.categorie_id,
+	    			product_id: categ.selected.id,
+	    		})
+	    	});
+	    }
     }
 
 });
