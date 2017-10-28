@@ -37,11 +37,23 @@ app.controller('GeneratedProductsCtrl', function($scope, $rootScope, $http){
             var smallers2 = smallers.slice();
             smallers2.splice(0, 1);
 
-            $rootScope.results[idx] = {
+
+            if(getCookie('id') != null) {
+	            $http.post('/api/products/obtainProduct', {
+	            	quantity: categ.quantity,
+	            	user_id: getCookie('id'),
+	            	category_id: categ.id,
+	            }).then((res) => {
+	            	$rootScope.results[idx].recommanded = res.data[0];
+	            })
+        	} 
+
+    		$rootScope.results[idx] = {
                 selected: smallers[0],
-                recommanded: smallers[0],
                 other: smallers2,
             }
+        	
+
         });
 
 
