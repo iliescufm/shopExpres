@@ -38,20 +38,36 @@ app.controller('GeneratedProductsCtrl', function($scope, $rootScope, $http){
             smallers2.splice(0, 1);
 
 
-            if(getCookie('id') != null) {
-	            $http.post('/api/products/obtainProduct', {
-	            	quantity: categ.quantity,
-	            	user_id: getCookie('id'),
-	            	category_id: categ.id,
-	            }).then((res) => {
-	            	$rootScope.results[idx].recommanded = res.data[0];
-	            })
-        	} 
+         //    if(getCookie('id') != null) {
+	        //     $http.post('/api/products/obtainProduct', {
+	        //     	quantity: categ.quantity,
+	        //     	user_id: getCookie('id'),
+	        //     	category_id: categ.id,
+	        //     }).then((res) => {
+	        //     	res.data[0].times = Math.ceil(categ.quantity/res.data[0].package)
+	        //     	console.log(res.data);
+	        //     	$rootScope.results[idx] = {
+		       //          selected: smallers[0],
+		       //          recommanded: res.data[0],
+		       //          other: smallers2,
+		       //      }
+	        //     })
+        	// } else {
+        		var pref_idx = 0;
+        		var pref_cookie = Number(getCookie("c" + categ.id));
+        		smallers.forEach((p, i) => {
+        			// console.log(p.
+        			if(p.id== pref_cookie)
+        				pref_idx = i;
+        		})
+        		$rootScope.results[idx] = {
+	                selected: smallers[0],
+	                recommanded: smallers[pref_idx],
+	                other: smallers2,
+	            }
+        	// }
 
-    		$rootScope.results[idx] = {
-                selected: smallers[0],
-                other: smallers2,
-            }
+
         	
 
         });
@@ -76,6 +92,8 @@ app.controller('GeneratedProductsCtrl', function($scope, $rootScope, $http){
     	if(getCookie('id') != null) {
     		console.log("Salveaza preferintele....");
 	    	res.forEach((categ) => {
+	    		var cookie_val = categ.selected.id;
+	    		document.cookie = "c"+ categ.selected.categorie_id + "=" + cookie_val;
 	    		$http.post('/api/users/createPreference', {
 	    			user_id: getCookie('id'),
 	    			category_id: categ.selected.categorie_id,

@@ -1,26 +1,42 @@
-<a ui-sref="buildList">Inapoi la lista</a>
+<div class="container">
+	<Br/>
+	<a class="btn btn-primary" ui-sref="buildList">Inapoi la lista</a>
 
+	<div class="clearfix"></div>
 
-<md-card ng-repeat="res in results">
-	<md-card-content>
-		<h2>{{arr[$index].searchText.split(" ")[0]}}</h2>
+	<div class="col-md-4" ng-repeat="res in results">
+		<md-card>
+			<md-card-content>
+				<h2>{{arr[$index].searchText.split(" ")[0]}}</h2>
 
-		<md-select ng-model="res.selected">
-			<md-option selected ng-value="res.recommanded">
-				{{optionToDescription(res.recommanded)}}
-			</md-option>
-		  <md-option ng-value="option" ng-repeat="option in res.other">
-		  	{{optionToDescription(option)}}
-		  </md-option>
-		</md-select>
+				<md-select ng-model="res.selected">
+					<md-option selected ng-value="res.recommanded">
+						{{optionToDescription(res.recommanded)}}
+					</md-option>
+				  <md-option ng-value="option" ng-repeat="option in res.other">
+				  	{{optionToDescription(option)}}
+				  </md-option>
+				</md-select>
+				<center>
+				<img src="{{res.selected.image_path}}" height="100px" />
+				</center>
+				<br/>
+				<md-card-footer>
+				<hr/>
+				{{res.selected.times*res.selected.price}}RON	
+				</md-card-footer>
 
-		<img src="{{res.selected.image_path}}" height="100px" />
-		<br/>
-		{{res.selected.times*res.selected.price}}RON	
+			</md-card-content>
+		</md-card>
+	</div>
 
-	</md-card-content>
-</md-card>
+	<div class="clearfix"></div>
+	<hr/>
+	<h2 class="float-right">Total: {{total(results)}}RON</h2>
 
-<h2 class="float-right">Total: {{total(results)}}RON</h2>
-
-<md-button ng-click="plaseazaComanda(results)">Plaseasa comanda</md-button>
+	<md-button ng-click="plaseazaComanda(results)">Plaseasa comanda</md-button>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+</div>
