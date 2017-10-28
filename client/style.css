@@ -1,6 +1,10 @@
 * {
   font-family: 'Roboto';
 }
+body {
+  background-image: url('/client/bg2.jpg');
+  background-attachment: fixed;
+}
 md-content.userReq:first-child {
   margin-top: 30px;
 }
@@ -38,7 +42,7 @@ md-autocomplete button {
   display: none;
 }
 div.md-dialog-container {
-  background: #88D8B0;
+  background: #0F3B68;
 }
 div.md-dialog-container md-dialog {
   font-family: 'Slabo 27px' !important;
