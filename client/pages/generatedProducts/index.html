@@ -1,0 +1,24 @@
+<a ui-sref="buildList">Inapoi la lista</a>
+
+
+<md-card ng-repeat="res in results">
+	<md-card-content>
+		<h2>{{arr[$index].searchText.split(" ")[0]}}</h2>
+
+		<md-select ng-model="res.selected">
+			<md-option selected ng-value="res.recommanded">
+				{{optionToDescription(res.recommanded)}}
+			</md-option>
+		  <md-option ng-value="option" ng-repeat="option in res.other">
+		  	{{optionToDescription(option)}}
+		  </md-option>
+		</md-select>
+
+		<img src="{{res.selected.image_path}}" height="100px" />
+		<br/>
+		{{res.selected.times*res.selected.price}}RON	
+
+	</md-card-content>
+</md-card>
+
+<h2 class="float-right">Total: {{total(results)}}RON</h2>

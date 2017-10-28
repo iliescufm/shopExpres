@@ -1,0 +1,27 @@
+<div class="col-md-6 col-md-push-3">
+
+	<md-content class="row md-padding userReq" ng-repeat="i in arr">
+		<div style="width: 80%; float: left">
+      <md-autocomplete
+          md-selected-item="i.selectedItem"
+          md-search-text-change="ctrl.searchTextChange(i.searchText)"
+          md-search-text="i.searchText"
+          md-items="item in querySearch(i.searchText)"
+          md-item-text="item.display"
+          placeholder="Introdu catgoria de produs apoi cantitatea">
+        <md-item-template>
+          <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+        </md-item-template>
+      </md-autocomplete>
+      </div>
+		<div style="width: 10%; float: left; text-align: center;">
+      		<md-button ng-click="sterge($index)"><i class="fa fa-times"></i></md-button>
+      </div>
+  </md-content>
+
+  <div class="buttons row">
+	  	<button class="md-raised" ng-click="add_new()"><i class="fa fa-plus"></i></button>
+	  	<button class="md-raised" ng-click="genereazaCosul()">Genereaza Cosul</button>
+	</div>
+
+</div>
