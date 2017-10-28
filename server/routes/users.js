@@ -23,7 +23,7 @@ router.post('/register', async function(req, res) {
     res.status(result.status).send(result.data);
 });
 
-router.post('/getCategories', async function(req, res) {
+router.post('/createPreference', async function(req, res) {
     let userId = parseInt(req.body.user_id);
     let categoryId = parseInt(req.body.category_id);
     let productId = parseInt(req.body.product_id);
