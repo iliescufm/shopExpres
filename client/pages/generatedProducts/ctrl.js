@@ -1,5 +1,9 @@
 app.controller('GeneratedProductsCtrl', function($scope, $rootScope, $http){
-
+	function getCookie(name) {
+	  var value = "; " + document.cookie;
+	  var parts = value.split("; " + name + "=");
+	  if (parts.length == 2) return parts.pop().split(";").shift();
+	}
 	// Maybe redundant...
 	$scope.arr = $rootScope.arr;
 
@@ -54,6 +58,19 @@ app.controller('GeneratedProductsCtrl', function($scope, $rootScope, $http){
     		sum += res.selected.times * res.selected.price;
     	});
     	return sum;
+    }
+
+    $scope.plaseazaComanda = function(res) {
+    	if(getCookie('id') != null) {
+    		console.log("Salveaza preferintele....");
+	    	res.forEach((categ) => {
+	    		$http.post('/api/users/createPreference', {
+	    			user_id: getCookie('id'),
+	    			category_id: categ.selected.categorie_id,
+	    			product_id: categ.selected.id,
+	    		})
+	    	});
+	    }
     }
 
 });
