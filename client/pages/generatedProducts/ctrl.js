@@ -22,7 +22,12 @@ app.controller('GeneratedProductsCtrl', function($scope, $rootScope, $http){
             });
 
             smallers.map((prduct) => {
-                prduct.times = Math.ceil(categ.quantity/prduct.package);
+            	if(prduct.package != 0) {
+                	prduct.times = Math.ceil(categ.quantity/prduct.package);
+            	} else {
+            		prduct.times = 1;
+            		prduct.package = categ.quantity;
+            	}
             })
 
             var smallers2 = smallers.slice();

@@ -9,7 +9,6 @@ app.controller("BuildListCtrl", function($scope, $http, $rootScope, $state, $q, 
 
 
     $http.get('/api/products/getCategories').then((res) => {
-        alert("Got states");
         $scope.states = res.data.map((categ)=>{
             return {
                 value: categ.id,
