@@ -26,6 +26,7 @@ router.post('/obtainProduct', async function(req, res){
         result = obtainPreference;
     } else {
         result = await ProductController.obtainProduct(categoryId, quantity);
+        console.log(result);
     }
 
     res.status(result.status).send([result.data]);

@@ -10,7 +10,6 @@ exports.obtainProduct = async function(id, quantity){
         let arrayList = [];
         let maxValue = await ProductService.obtainMaxProduct(searchParams.categoryId, searchParams.quantity);
         let absoluteMax = parseInt(searchParams.quantity);
-
         let products = await ProductService.obtainApproximateProduct(searchParams.categoryId, searchParams.quantity);
 
         if(parseInt(maxValue[0][0].max) !== 0) {
